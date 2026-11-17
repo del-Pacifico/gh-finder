@@ -1,0 +1,30 @@
+@'
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gh-finder"
+version = "0.1.0"
+description = "CLI to search GitHub repositories with guided flags and export results to Markdown or JSON."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MPL-2.0" }
+authors = [
+    { name = "Sergio Palma Hidalgo" }
+]
+dependencies = [
+    "requests>=2.31",
+    "platformdirs>=4.0",
+]
+
+[project.scripts]
+gh-finder = "gh_finder.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["gh_finder*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+'@ | Set-Content -Path "pyproject.toml" -Encoding UTF8
