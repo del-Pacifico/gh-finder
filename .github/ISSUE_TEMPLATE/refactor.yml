@@ -1,0 +1,93 @@
+name: 🕶️ gh-finder – Refactor / Technical Debt
+description: Propose a code refactoring, cleanup, or technical debt reduction that does not change user-facing behavior.
+title: "[Refactor] "
+labels:
+  - type: refactor
+  - needs: triage
+  - priority: normal
+  - status: backlog
+body:
+  - type: markdown
+    attributes:
+      value: |
+        🔧 Refactor / Technical Debt
+
+        Use this template to propose **code refactoring, cleanup, or technical debt reduction**
+        that improves code quality without changing user-facing behavior.
+
+        ✅ Use this for:
+        - Removing dead code
+        - Unifying duplicated implementations
+        - Cleaning up module structure
+        - Simplifying control flow
+
+        ❌ Do NOT use this for:
+        - Broken behavior → use **Bug Report**
+        - New features → use **Feature Request**
+        - Documentation-only changes → use **Documentation Issue**
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Affected Module
+      options:
+        - "models"
+        - "client"
+        - "exporter"
+        - "cli"
+        - "cache"
+        - "Multiple"
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: Short Summary
+      description: One concise sentence describing the refactoring goal.
+      placeholder: "e.g., Unify query assembly logic between --query and guided flags"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current State / Problem
+      description: Describe the current code state that needs refactoring.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed Refactor
+      description: Describe the proposed refactoring at a conceptual level.
+    validations:
+      required: true
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Behavior Preservation
+      description: Confirm and explain how this refactor preserves existing behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / Impact
+      placeholder: |
+        - Files / modules affected:
+        - Risk level (Low / Medium / High):
+        - Blast radius:
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: References / Evidence (optional)
+      description: Links to the divergent code or related issues.
+    validations:
+      required: false

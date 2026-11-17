@@ -1,0 +1,94 @@
+name: 🕶️ gh-finder – Documentation Issue
+description: Report a documentation problem (typos, broken links, outdated instructions, missing sections).
+title: "[Docs] "
+labels:
+  - type: documentation
+  - needs: triage
+  - priority: normal
+  - status: backlog
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        📚 Documentation Issue
+
+        Use this template to report documentation problems such as:
+        - Typos or unclear wording
+        - Broken links / anchors
+        - Outdated instructions
+        - Missing sections
+
+        Tips:
+        - Be precise: include the exact file path and section header.
+
+  - type: dropdown
+    id: doc_area
+    attributes:
+      label: Documentation Area
+      options:
+        - Root README.md
+        - docs/PROJECT_FRAMEWORK.md
+        - CLI --help output
+        - CHANGELOG.md
+        - CONTRIBUTING.md
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: file_path
+    attributes:
+      label: File Path
+      description: Path to the affected file (relative to repository root).
+      placeholder: "e.g., docs/PROJECT_FRAMEWORK.md"
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Section / Heading
+      description: Exact heading where the issue occurs.
+      placeholder: "e.g., ## 6. Flag → GitHub Qualifier Mapping"
+    validations:
+      required: false
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem Summary
+      description: Describe what is wrong objectively and succinctly.
+      placeholder: |
+        Example:
+        - The anchor link points to a non-existing heading
+        - The default value is incorrect
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested Correction (recommended)
+      description: Propose a corrected wording, link, or structure.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Minor (typo / cosmetic)
+        - Medium (confusing or incomplete instructions)
+        - High (broken workflow or misleading instructions)
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence (optional)
+      description: Screenshots, quotes, or references.
+    validations:
+      required: false

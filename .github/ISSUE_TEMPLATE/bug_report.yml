@@ -1,0 +1,153 @@
+name: 🕶️ gh-finder – Bug Report
+description: Report a reproducible problem with gh-finder.
+title: "[Bug] "
+labels:
+  - type: bug
+  - needs: triage
+  - priority: normal
+  - status: backlog
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        🐞 Bug Report
+
+        Use this template to report **reproducible problems** in gh-finder.
+
+        ✅ Use this for:
+        - Incorrect search results or query assembly
+        - Export failures (Markdown/JSON)
+        - Cache behavior issues
+        - Crashes or unexpected errors
+
+        ❌ Do NOT use this for:
+        - Feature ideas → use **Feature Request**
+        - Documentation problems → use **Documentation Issue**
+        - Security issues → use the **Security Policy** (do not open public issues)
+
+        Tips:
+        - Include the exact command you ran.
+        - Include logs filtered by `[gh-finder]`.
+        - If possible, reproduce on a fresh terminal session.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Related Module
+      description: Select the module where the bug occurs.
+      options:
+        - "models (RepoResult)"
+        - "client (API calls, rate limits, cache)"
+        - "exporter (Markdown, JSON)"
+        - "cli (argument parsing, flags)"
+        - "Multiple / Unknown"
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: Short Summary
+      description: One concise sentence describing what breaks and under which condition.
+      placeholder: "e.g., --topic with multiple values produces duplicate qualifiers"
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command Executed
+      description: Paste the exact command you ran.
+      placeholder: |
+        gh-finder --language python --min-stars 100 --output results.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: Describe what should happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: Describe what actually happens (include error messages).
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal, deterministic steps.
+      placeholder: |
+        1) Run: gh-finder --query "language:python stars:>=500"
+        2) Observe output
+        3) ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Evidence
+      description: Paste relevant logs filtered by `[gh-finder]`. Use `--verbose` if available.
+      placeholder: |
+        [gh-finder] GET https://api.github.com/search/repositories?q=...
+        [gh-finder] Status: 403 | Remaining: 0
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: gh-finder Version
+      description: Run `gh-finder --version` or provide the installed version.
+      placeholder: "e.g., 0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python Version
+      description: Run `python --version`.
+      placeholder: "e.g., 3.12.1"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "e.g., Windows 11, Ubuntu 24.04, macOS 15"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: token
+    attributes:
+      label: GITHUB_TOKEN Set?
+      description: Whether the environment variable was configured when the bug occurred.
+      options:
+        - "Yes"
+        - "No"
+        - "Unknown"
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical_notes
+    attributes:
+      label: Technical Notes (optional)
+      description: Any hypotheses or additional context.
+      placeholder: |
+        - Suspected area:
+        - Related recent changes:
+    validations:
+      required: false

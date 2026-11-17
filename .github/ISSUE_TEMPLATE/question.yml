@@ -1,0 +1,85 @@
+name: 🕶️ gh-finder – Question
+description: Ask a question about usage, configuration, or expected behavior. Not for bugs or feature requests.
+title: "[Question] "
+labels:
+  - "type: question"
+  - "needs: triage"
+  - "priority: normal"
+  - "status: backlog"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        💬 Question
+
+        Use this template when:
+        - You have a question about usage, configuration, or expected behavior.
+        - You are unsure whether an observed behavior is a bug or expected.
+
+        ❌ Do NOT use this for:
+        - Reproducible defects → use **Bug Report**
+        - New capabilities or improvements → use **Feature Request**
+
+        Tips:
+        - Keep one question per issue.
+        - Include the exact command and context.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Related Module
+      options:
+        - "models (RepoResult)"
+        - "client (API calls, rate limits, cache)"
+        - "exporter (Markdown, JSON)"
+        - "cli (argument parsing, flags)"
+        - "Multiple / Unknown"
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: Short Summary
+      description: One concise sentence with your question.
+      placeholder: "e.g., How does --limit interact with cache?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Describe the question in detail.
+      placeholder: |
+        - What are you trying to achieve?
+        - What did you observe?
+        - What did you already check (docs, --help)?
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command / Context (recommended)
+      description: The command you ran and relevant settings.
+      placeholder: |
+        gh-finder --topic bookmark --output results.md
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: gh-finder Version (if applicable)
+      placeholder: "e.g., 0.1.0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs / Evidence (optional)
+      description: Relevant logs filtered by `[gh-finder]` or screenshots.
+    validations:
+      required: false
