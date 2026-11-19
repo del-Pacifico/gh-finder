@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `--query` is now rejected when combined with guided flags (`gh_finder/cli.py`).
+- Console output now shows the full repository description (up to 350 characters) instead of truncating at 60 (`gh_finder/cli.py`).
 
 ---
 
