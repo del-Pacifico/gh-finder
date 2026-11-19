@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub search client with rate limit handling, cache, and `--check-token` support (`gh_finder/github_client.py`).
 - Markdown and JSON export with format inference by file extension (`gh_finder/exporter.py`).
 - Command-line interface with dual search modes, guided flags, `--dry-run`, `--verbose`, and `--check-token` (`gh_finder/cli.py`).
+- Progress spinner while waiting for GitHub API responses (`gh_finder/cli.py`).
 
 ---
 
