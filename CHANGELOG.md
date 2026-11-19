@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `README.md` with quick start, rate-limit guidance, and usage examples.
 - `LICENSE` (Mozilla Public License 2.0) and `docs/LICENSE-SUMMARY.md`.
 - `CONTRIBUTING.md` adapted for a Python CLI project.
+- `RepoResult` dataclass with API payload mapping and JSON serialization (`gh_finder/models.py`).
 
 ---
 
