@@ -15,6 +15,8 @@ import argparse
 import logging
 import os
 import sys
+import threading
+import time
 from pathlib import Path
 
 from gh_finder.exporter import UnsupportedFormatError, export_results
@@ -213,6 +215,24 @@ def _handle_dry_run(query: str, limit: int) -> int:
     print(f"URL:   {url}")
     return 0
 
+def _start_spinner(message: str = "Working...") -> tuple[threading.Event, threading.Thread]:
+    """Start a background spinner. Returns (stop_event, thread)."""
+    stop = threading.Event()
+
+    def spin():
+        chars = "|/-\\"
+        i = 0
+        while not stop.is_set():
+            sys.stdout.write(f"\r{message} {chars[i % len(chars)]}")
+            sys.stdout.flush()
+            i += 1
+            time.sleep(0.1)
+        sys.stdout.write("\r" + " " * (len(message) + 3) + "\r")
+        sys.stdout.flush()
+
+    thread = threading.Thread(target=spin, daemon=True)
+    thread.start()
+    return stop, thread
 
 def main(argv: list[str] | None = None) -> int:
     """Entry point for the gh-finder CLI."""
@@ -242,6 +262,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.dry_run:
         return _handle_dry_run(query, limit)
 
+        stop_spinner = None
+    spinner_thread = None
+    if not args.verbose:
+        stop_spinner, spinner_thread = _start_spinner("Working...")
+
     try:
         results = search_repositories(
             query=query,
@@ -265,6 +290,10 @@ def main(argv: list[str] | None = None) -> int:
     except GitHubClientError as exc:
         print(f"[gh-finder] {exc}", file=sys.stderr)
         return 7
+    finally:
+        if stop_spinner is not None:
+            stop_spinner.set()
+            spinner_thread.join(timeout=1)
 
     _print_table(results)
 

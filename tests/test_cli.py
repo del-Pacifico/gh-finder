@@ -9,7 +9,7 @@
 
 """Tests for gh_finder.cli."""
 
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -117,3 +117,21 @@ def test_check_token(mock_check, capsys, monkeypatch):
     captured = capsys.readouterr()
     assert exit_code == 0
     assert "47/60" in captured.out
+
+
+@patch("gh_finder.cli._start_spinner")
+@patch("gh_finder.cli.search_repositories")
+def test_spinner_is_started(mock_search, mock_spinner, capsys):
+    mock_search.return_value = []
+    stop_event = Mock()
+    stop_event.set = Mock()
+    thread = Mock()
+    thread.join = Mock()
+    mock_spinner.return_value = (stop_event, thread)
+
+    exit_code = main(["--language", "python"])
+
+    assert exit_code == 0
+    mock_spinner.assert_called_once_with("Working...")
+    stop_event.set.assert_called_once()
+    thread.join.assert_called_once()
