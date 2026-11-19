@@ -238,6 +238,16 @@ An Issue or PR is considered **ready for review** when:
 - Add **docstrings** to every new/changed function (PEP 257 style).
 - Keep logging consistent: `[gh-finder]: message`. Use `logging.debug()` for verbose output.
 
+### 📝 Comments and Docstrings
+
+- **Docstrings are required** on every function that is not a trivial one-liner (PEP 257 style).
+  A good docstring answers: *what does this function do, what does it return, and what exceptions can it raise?*
+- **Inline comments explain *why*, not *what*.** If the code is self-explanatory, do not comment it.
+  Use comments to record non-obvious decisions, workarounds, or constraints (e.g., `# GitHub resets quota at the top of the hour`).
+- **Language:** American English, professional and direct. No emojis in code comments.
+- **Tone:** Objective. Avoid humor, filler, or first-person narration inside code.
+- **No commented-out code.** If code is no longer needed, delete it. Git preserves history.
+
 ### 🎯 Minimal Technical Footprint (Zero Over-Engineering)
 
 - Solve the actual problem, not hypothetical future scenarios.
