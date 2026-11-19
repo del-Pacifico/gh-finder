@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `LICENSE` (Mozilla Public License 2.0) and `docs/LICENSE-SUMMARY.md`.
 - `CONTRIBUTING.md` adapted for a Python CLI project.
 - `RepoResult` dataclass with API payload mapping and JSON serialization (`gh_finder/models.py`).
+- GitHub search client with rate limit handling, cache, and `--check-token` support (`gh_finder/github_client.py`).
+- Markdown and JSON export with format inference by file extension (`gh_finder/exporter.py`).
 
 ---
 
