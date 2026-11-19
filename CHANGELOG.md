@@ -25,6 +25,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Markdown and JSON export with format inference by file extension (`gh_finder/exporter.py`).
 - Command-line interface with dual search modes, guided flags, `--dry-run`, `--verbose`, and `--check-token` (`gh_finder/cli.py`).
 - Progress spinner while waiting for GitHub API responses (`gh_finder/cli.py`).
+- `--query` is now rejected when combined with guided flags (`gh_finder/cli.py`).
+
+### Fixed
+
+- `--query` is now rejected when combined with guided flags (`gh_finder/cli.py`).
 
 ---
 
