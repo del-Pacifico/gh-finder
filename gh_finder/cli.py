@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 MAX_LIMIT = 100
 DEFAULT_LIMIT = 10
-DESCRIPTION_MAX_WIDTH = 60
+DESCRIPTION_MAX_WIDTH = 350
 
 
 def _build_parser() -> argparse.ArgumentParser:
