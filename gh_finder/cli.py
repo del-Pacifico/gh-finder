@@ -49,14 +49,12 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
 
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument(
+    parser.add_argument(
         "--query",
         metavar="QUERY",
         help="Raw GitHub search query (e.g., 'language:python stars:>=500').",
     )
-
-    mode.add_argument(
+    parser.add_argument(
         "--language",
         metavar="NAME",
         help="Filter by programming language (e.g., python).",
@@ -153,6 +151,28 @@ def _resolve_query(args: argparse.Namespace) -> str:
         )
     return guided
 
+def _validate_mode(args: argparse.Namespace) -> None:
+    """Ensure --query is not mixed with guided flags."""
+    if not args.query:
+        return
+
+    guided_used = []
+    if args.language:
+        guided_used.append("--language")
+    if args.min_stars is not None:
+        guided_used.append("--min-stars")
+    if args.topic:
+        guided_used.append("--topic")
+    if args.in_field:
+        guided_used.append("--in")
+    if args.pushed_after:
+        guided_used.append("--pushed-after")
+
+    if guided_used:
+        raise ValueError(
+            f"--query cannot be combined with guided flags: {', '.join(guided_used)}. "
+            f"Use either --query for raw GitHub syntax, or guided flags for structured search."
+        )
 
 def _cap_limit(limit: int) -> int:
     """Cap the limit to the GitHub API maximum per page."""
@@ -238,6 +258,12 @@ def main(argv: list[str] | None = None) -> int:
     """Entry point for the gh-finder CLI."""
     parser = _build_parser()
     args = parser.parse_args(argv)
+
+    try:
+        _validate_mode(args)
+    except ValueError as exc:
+        print(f"[gh-finder] {exc}", file=sys.stderr)
+        return 2
 
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG, format="%(message)s")

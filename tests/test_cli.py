@@ -11,8 +11,6 @@
 
 from unittest.mock import Mock, patch
 
-import pytest
-
 from gh_finder.cli import _build_guided_query, _build_parser, main
 from gh_finder.models import RepoResult
 
@@ -38,9 +36,11 @@ def test_guided_query_multiple_topics():
     assert _build_guided_query(args) == "topic:bookmark topic:tabs"
 
 
-def test_query_and_guided_flags_are_mutually_exclusive():
-    with pytest.raises(SystemExit):
-        _parse(["--query", "language:python", "--language", "python"])
+def test_query_and_guided_flags_are_mutually_exclusive(capsys):
+    exit_code = main(["--query", "language:python", "--language", "python"])
+    captured = capsys.readouterr()
+    assert exit_code == 2
+    assert "--query cannot be combined with guided flags" in captured.err
 
 
 def test_no_criteria_returns_error(capsys):
@@ -135,3 +135,10 @@ def test_spinner_is_started(mock_search, mock_spinner, capsys):
     mock_spinner.assert_called_once_with("Working...")
     stop_event.set.assert_called_once()
     thread.join.assert_called_once()
+
+def test_query_with_guided_flags_returns_error(capsys):
+    exit_code = main(["--query", "language:python", "--in", "name"])
+    captured = capsys.readouterr()
+    assert exit_code == 2
+    assert "--query cannot be combined with guided flags" in captured.err
+    assert "--in" in captured.err
